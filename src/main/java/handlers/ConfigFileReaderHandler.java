@@ -6,6 +6,7 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.time.Duration;
 import java.util.Properties;
 
 public class ConfigFileReaderHandler {
@@ -38,16 +39,16 @@ public class ConfigFileReaderHandler {
                     "Key:driverPath");
     }
 
-    public long getImplicitlyWait() {
-        String implicitlyWait = properties.getProperty("implicitlyWait");
-        if (implicitlyWait != null) {
+    public Duration getDefaultWait() {
+        String defaultWait = properties.getProperty("defaultWait");
+        if (defaultWait != null) {
             try {
-                return Long.parseLong(implicitlyWait);
+                return Duration.ofSeconds(Integer.parseInt(defaultWait));
             } catch (NumberFormatException e) {
-                throw new RuntimeException("Not able to parse value : " + implicitlyWait + " in to Long");
+                throw new RuntimeException("Not able to parse value : " + defaultWait + " in to Long");
             }
         }
-        return 30;
+        return Duration.ofSeconds(30);
     }
 
     public String getApplicationUrl() {
@@ -58,7 +59,7 @@ public class ConfigFileReaderHandler {
                     "Key:url");
     }
 
-    public EnumHelper.DriverType getBrowser() {
+    public EnumHelper.DriverTypeEnum getBrowser() {
 
         String browserName = properties.getProperty("browser").toLowerCase();
 
@@ -68,11 +69,11 @@ public class ConfigFileReaderHandler {
 
         switch (browserName){
             case "chrome":
-                return EnumHelper.DriverType.CHROME;
+                return EnumHelper.DriverTypeEnum.CHROME;
             case "internetexplorer":
-                return EnumHelper.DriverType.INTERNETEXPLORER;
+                return EnumHelper.DriverTypeEnum.INTERNETEXPLORER;
             case "firefox":
-                return EnumHelper.DriverType.FIREFOX;
+                return EnumHelper.DriverTypeEnum.FIREFOX;
             default:
                 throw new RuntimeException("Browser in Configuration.properties "+ browserName + " is not a " +
                         "supported browser");

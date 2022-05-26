@@ -8,15 +8,18 @@ public class Hooks {
 
     WebDriverManager webDriverManager = new WebDriverManager();
 
+    /**
+     * Prepares a new WebBrowser before every test case
+     */
     @Before
     public void setUp() {
-        //creates a driver if there is non
         webDriverManager.getDriver();
-        //TODO: substitute for a explicit method according to ExpectedConditions
-        webDriverManager.setImplicitlyWait();
         webDriverManager.getDriver().manage().window().maximize();
     }
 
+    /**
+     * Closes and quits the browser after every test case being executed
+     */
     @After
     public void tearDown() {
         webDriverManager.quitDriver();

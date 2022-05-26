@@ -1,0 +1,11 @@
+pages\BasePage.class
+runners\Run.class
+stepDefinition\Hooks.class
+pages\header\Header.class
+stepDefinition\HeaderSteps.class
+pages\body\ShoppingBagPage\ShoppingBagPage.class
+stepDefinition\HomepageSteps.class
+pages\body\homepagePage\HomepagePage.class
+pages\footer\Footer.class
+stepDefinition\BasePageSteps.class
+stepDefinition\ShoppingBagSteps.class

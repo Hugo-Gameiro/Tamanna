@@ -2,9 +2,13 @@ package helpers;
 
 public class EnumHelper {
 
-    public enum DriverType {
+    public enum DriverTypeEnum {
         FIREFOX,
         CHROME,
         INTERNETEXPLORER
+    }
+
+    public enum PageEnum {
+        HOMEPAGE
     }
 }

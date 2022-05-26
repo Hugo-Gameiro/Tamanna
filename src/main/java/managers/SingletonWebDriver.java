@@ -1,7 +1,7 @@
 package managers;
 
 import handlers.ConfigFileReaderHandler;
-import helpers.EnumHelper.DriverType;
+import helpers.EnumHelper.DriverTypeEnum;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -13,13 +13,13 @@ public class SingletonWebDriver {
     private static SingletonWebDriver instanceOfSingletonWebDriver = null;
     private static final String CHROME_DRIVER_PROPERTY = "webdriver.chrome.driver";
     private static ConfigFileReaderHandler configFileReaderHandler = new ConfigFileReaderHandler();
-    private DriverType driverType;
+    private DriverTypeEnum driverTypeEnum;
     private WebDriver driver;
     
     
     //Constructor
-    private SingletonWebDriver(DriverType driverType) {
-        this.driverType = driverType;
+    private SingletonWebDriver(DriverTypeEnum driverTypeEnum) {
+        this.driverTypeEnum = driverTypeEnum;
     }
 
     public static SingletonWebDriver getInstanceOfSingletonWebDriverManager() {
@@ -29,10 +29,16 @@ public class SingletonWebDriver {
         return instanceOfSingletonWebDriver;
     }
 
+    /**
+     * Creates and handles a driver instance either the Static SingletonWebDriver has none or if
+     * after quit() the driver exists but has no valid SessionID. If the WebDriver already exists handles the driver
+     * previous created
+     * @return - WebDriver instance
+     */
     public WebDriver getDriver() {
 
         if (driver == null || ((RemoteWebDriver) driver).getSessionId() == null) {
-            switch (driverType) {
+            switch (driverTypeEnum) {
                 case FIREFOX:
                     driver = new FirefoxDriver();
                     break;
